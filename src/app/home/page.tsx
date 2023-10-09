@@ -1,21 +1,43 @@
 import Image from 'next/image'
-import Learnlink from './Untitled_Artwork 5.png'
 import {Button} from "../components/ui/button";
 import Link from "next/link";
+import {Separator} from "../components/ui/separator";
+import {Avatar, AvatarFallback, AvatarImage} from "../components/ui/avatar";
+import Learnlink from './tree.jpeg'
 
 export default function Home() {
     return (
-        <main className="flex h-screen w-screen flex-col items-center bg-zinc-900">
+        <main className="flex h-screen w-screen flex-col bg-background">
             <div className="flex w-full h-12 bg-gradient-to-r from-purple-600 to-indigo-500"/>
-            <h1 className="text-6xl font-bold p-[5%] text-gray-100">Learn Link</h1>
-            <Image src={Learnlink} className="h-[30%] w-[30%]" alt="Logo"/>
-            <Button className="px-24 py-6 m-6" asChild>
-                <Link href="/sign-up">Sign up</Link>
-            </Button>
-            <Button variant="outline" className="px-24 py-6 m-6" asChild>
-                <Link href="/sign-in">Sign in</Link>
-            </Button>
+            <div className="flex flex-row grow">
+                <SideBar/>
+                <Separator orientation="vertical"></Separator>
+                <div className="flex grow flex-col h-full items-center border-white">
+                    <PostRectangle/>
+                    <PostRectangle/>
+                </div>
+            </div>
         </main>
     )
 }
- 
+
+function PostRectangle() {
+    return (
+        <div className="flex flex-row mt-4 w-[95%] h-16 border items-center p-4">
+            <Image src={Learnlink} className="w-12 h-12 rounded-md" alt="@shadcn"/>
+            <Separator className="m-4" orientation="vertical"></Separator>
+            <span>Lorum Ipssum my butthole</span>
+        </div>
+    )
+}
+
+function SideBar() {
+    return (
+        <div className="flex flex-col items-center w-64 h-full">
+            <Avatar className="m-4">
+                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+        </div>
+    )
+}
