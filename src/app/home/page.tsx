@@ -26,7 +26,7 @@ function PostRectangle() {
         <div className="flex flex-row mt-4 w-[95%] h-16 border items-center p-4">
             <Image src={Learnlink} className="w-12 h-12 rounded-md" alt="@shadcn"/>
             <Separator className="m-4" orientation="vertical"></Separator>
-            <span>Lorum Ipssum my butthole</span>
+            <span>This is a post Title</span>
         </div>
     )
 }
