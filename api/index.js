@@ -8,7 +8,11 @@ const authRoute = require("./routes/auth");
 const tagRoute = require("./routes/tags");
 const postRoute = require("./routes/posts");
 
-mongoose.connect("mongodb+srv://learnLink:2j4CSOphrlcrhrqZ@learnlinkapi.rbhai0r.mongodb.net/?retryWrites=true&w=majority").then(() =>
+const url = "mongodb+srv://learnLink:2j4CSOphrlcrhrqZ@learnlinkapi.rbhai0r.mongodb.net/?retryWrites=true&w=majority&appname=LearnLink";
+
+mongoose.connect(url,{
+  dbName: 'LearnLink',
+}).then(() =>
 console.log("DB connnection successful")).catch((err) => {
     console.log("Some error occured");
 });
