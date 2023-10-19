@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
+const User = require("../models/User");
+const Tag = require("../models/Tag");
 
 //create a post
 router.post("/", async (req,res) => {
@@ -68,24 +70,23 @@ router.get("/:id", async(req, res) => {
     }
 });
 
-/*
+
 //get feed posts
 router.get("/feed/all", async(req, res) => {
     try {
         const currentUser = await User.findById(req.body.userId);
-        const userPosts = await Post.find({userId: currentUser._id});
+        //const userPosts = await Post.find({userId: currentUser._id});
         const tagPosts = await Promise.all(
             currentUser.followingTags.map(tagId => {
                 return Post.find({tags: tagId});
             })
         );
         
-        res.json(userPosts.concat(...tagPosts));
-       res.status(200).json(currentUser);
+        //res.status(200).json(userPosts.concat(...tagPosts));
+       res.status(200).json(tagPosts);
     } catch(err) {
-        res.status(500).json("test");
+        res.status(500).json(err);
     }
 })
-*/
 
 module.exports = router;

@@ -9,7 +9,7 @@ const tagRoute = require("./routes/tags");
 const postRoute = require("./routes/posts");
 
 mongoose.connect("mongodb+srv://learnLink:2j4CSOphrlcrhrqZ@learnlinkapi.rbhai0r.mongodb.net/?retryWrites=true&w=majority").then(() =>
-console.log("DB connnection successful")).catch(() => {
+console.log("DB connnection successful")).catch((err) => {
     console.log("Some error occured");
 });
 /*
