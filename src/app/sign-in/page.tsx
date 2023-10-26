@@ -20,8 +20,25 @@ import {
     SelectValue,
 } from "../components/ui/select"
 import Link from "next/link";
+import {useState} from "react";
+import axios from "axios";
+import {useRouter} from "next/navigation";
+import {useToast} from "../components/ui/use-toast";
 
 export default function CardWithForm() {
+    const {toast} = useToast()
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const router = useRouter();
+
+    const navigateToHome = () => {
+        router.push('/home');
+    };
+    const navigateToTemp = () => {
+        router.push('/Temp');
+    };
+
     return (
         <main className="flex h-screen w-screen flex-col items-center bg-background">
             <div className="flex w-full h-12 bg-gradient-to-r from-purple-600 to-indigo-500"/>
@@ -35,24 +52,52 @@ export default function CardWithForm() {
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="name">Email</Label>
-                            <Input id="name" placeholder="Enter email address" />
+                            <Input id="name" placeholder="Enter Username"
+                                   value={username} onChange={(event) => {setUsername(event.target.value); console.log(username)}}/>
                         </div>
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="framework">Password</Label>
-                            <Input type="password" id="name" placeholder="Enter password" />
+                            <Input type="password" id="name" placeholder="Enter password"
+                                   value={password} onChange={(event) => {setPassword(event.target.value); console.log(password)}}/>
                         </div>
                     </div>
                 </form>
             </CardContent>
             <CardFooter className="flex justify-between">
                 <Button onClick={()=> {
-                    history.back()
+                    navigateToTemp();
                 }} variant="outline">Back</Button>
-                <Button asChild>
-                    <Link href="/home">sign in</Link>
+                <Button onClick={async () => {
+                    const userExists = await login(username, password)
+                    if (userExists) {
+                        console.log("user exists, login successful")
+                        toast({
+                            title: "Login Successful!",
+                            description: "welcome back."
+                        })
+                        navigateToHome()
+                    }
+                    toast({
+                        title: "That didn't work.",
+                        description: "Check username and password."
+                    })
+                    return
+                }}>sign in
                 </Button>
             </CardFooter>
         </Card>
         </main>
     )
+}
+
+async function login(username, password) {
+    try {
+        console.log(username)
+        const response = await axios.get("http://localhost:8800/api/users/sign_in/"+username+"/"+password)
+        return response.data
+    }
+    catch (e) {
+        console.error(e);
+        return null;
+    }
 }

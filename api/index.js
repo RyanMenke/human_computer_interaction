@@ -3,12 +3,15 @@ const app = express();
 const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require("mongoose")
+const cors = require("cors");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const tagRoute = require("./routes/tags");
 const postRoute = require("./routes/posts");
+require('dotenv').config()
 
 const url = "mongodb+srv://learnLink:2j4CSOphrlcrhrqZ@learnlinkapi.rbhai0r.mongodb.net/?retryWrites=true&w=majority&appname=LearnLink";
+const connectionString = process.env.DB_CONNECTION_STRING
 
 mongoose.connect(url,{
   dbName: 'LearnLink',
@@ -48,6 +51,24 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
+// The next dev server runs on localhost:3000, so we need the CORS policy to allow
+// requests from it
+const allowedOrigins = ['localhost:3000'];
+app.use(cors({
+    origin: function(origin, callback){
+        if (!origin) {
+            return callback(null, true);
+        }
+
+        if (allowedOrigins.includes(origin)) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+
+        return callback(null, true);
+    }
+}));
+
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/tags", tagRoute);
@@ -58,5 +79,5 @@ app.get("/",(req,res)=> {
 });
 
 app.listen(8800,()=>{
-    console.log("Backend server is running!");
+    console.log("Backend server is running on port 8800");
 });

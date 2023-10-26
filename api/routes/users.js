@@ -52,6 +52,61 @@ router.get("/:id", async (req, res) => {
 
 });
 
+router.get("/all/users", async (req, res) => {
+    try {
+        console.log(req.params.username)
+        const user = await User.find();
+        console.log(user)
+        res.status(200).json(user);
+    } catch(err) {
+        res.status(500).json(err);
+    }
+
+});
+
+router.get("/find/one/:username", async (req, res) => {
+    try {
+        console.log(req.params.username)
+        const user = await User.findOne({username: req.params.username});
+        console.log(user)
+        res.status(200).json(user);
+    } catch(err) {
+        res.status(500).json(err);
+    }
+
+});
+
+router.get("/sign_in/:username/:password", async (req, res) => {
+    try {
+        console.log(req.params.username)
+        const user = await User.findOne({username: req.params.username, password: req.params.password});
+        console.log(user)
+        res.status(200).json(user);
+    } catch(err) {
+        res.status(500).json(err);
+    }
+
+});
+
+router.put('/create/user/:username/:password', async (req, res) => {
+    try {
+        // const { name, email } = req.body;
+        // const newUser = new User({ name, email });
+        // const savedUser = await newUser.save();
+
+        const username = req.params.username
+        const password = req.params.password
+        const userToBeCreated = new User({
+            username: username,
+            password: password
+        })
+        const savedUser = await userToBeCreated.save();
+        res.status(201).json(savedUser);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to create user' });
+    }
+});
+
 /* Moved to tags route
 const Tag = require("../models/Tag");
 

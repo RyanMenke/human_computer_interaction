@@ -89,4 +89,32 @@ router.get("/feed/all", async(req, res) => {
     }
 })
 
+router.get("/all/posts", async(req, res) => {
+    try {
+        const posts = await Post.find();
+
+        //res.status(200).json(userPosts.concat(...tagPosts));
+        res.status(200).json(posts);
+    } catch(err) {
+        res.status(500).json(err);
+    }
+})
+
+router.put('/create/post', async (req, res) => {
+    try {
+        // const { name, email } = req.body;
+        // const newUser = new User({ name, email });
+        // const savedUser = await newUser.save();
+
+        const content = req.body.content
+        const postToBeCreated = new Post({
+            content: content,
+        })
+        const savedUser = await postToBeCreated.save();
+        res.status(201).json(savedUser);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to create user' });
+    }
+});
+
 module.exports = router;
