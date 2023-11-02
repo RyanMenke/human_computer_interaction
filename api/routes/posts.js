@@ -107,8 +107,10 @@ router.put('/create/post', async (req, res) => {
         // const savedUser = await newUser.save();
 
         const content = req.body.content
+        const tag = req.body.selectedTag
         const postToBeCreated = new Post({
             content: content,
+            tags: [tag]
         })
         const savedUser = await postToBeCreated.save();
         res.status(201).json(savedUser);

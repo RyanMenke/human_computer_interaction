@@ -1,5 +1,6 @@
 const Tag = require("../models/Tag");
 const User = require("../models/User");
+const Post = require("../models/Post");
 const router = require("express").Router();
 
 //create tag
@@ -84,5 +85,16 @@ router.put("/:id/unfollow", async (req,res) => {
         res.status(500).json(err);
     }
 });
+
+router.get("/all/tags", async(req, res) => {
+    try {
+        const tags = await Tag.find();
+
+        //res.status(200).json(userPosts.concat(...tagPosts));
+        res.status(200).json(tags);
+    } catch(err) {
+        res.status(500).json(err);
+    }
+})
 
 module.exports = router;
