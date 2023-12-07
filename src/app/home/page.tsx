@@ -204,7 +204,7 @@ function DisplayPosts({searchText, data, currentTag}) {
     const newData = data.filter(item => item.tags[0])
     console.log(newData)
     const finalData = newData.filter(item => item.tags[0].match(new RegExp(currentTag, "gi")))
-    const rows = searchText.trim().length > 0 ? finalData.filter(item => item.content.match(searchText)) : finalData
+    const rows = searchText.trim().length > 0 ? finalData.filter(item => item.content.toLowerCase().match(searchText.toLowerCase())) : finalData
     //data.map()
     //const a = data.at(0)._id;
     return rows
