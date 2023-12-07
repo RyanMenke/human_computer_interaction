@@ -19,5 +19,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.11.97"
   }
 }

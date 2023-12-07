@@ -25,6 +25,7 @@ import {
 import { Textarea } from "../components/ui/textarea"
 import {useToast} from "../components/ui/use-toast";
 import {ComboboxDemo} from "@/app/home/tagDropDown";
+import {useRouter} from "next/navigation";
 
 
 export default function Home() {
@@ -258,11 +259,14 @@ function SideBar({allTags, selectedTag, setSelectedTag}: SideBarProps) {
     console.log(allTags);
     console.log(allTags);
     const tags = ["one", "two", "three"]
+    const router = useRouter();
 
     return (
         <div className="flex flex-col items-center w-48 h-full">
             <Avatar className="m-7">
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarImage onClick={() => {
+                    router.push('/Temp');
+                }} src="https://github.com/shadcn.png" alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <Separator orientation="horizontal"></Separator>

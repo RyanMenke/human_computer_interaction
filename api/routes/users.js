@@ -94,15 +94,20 @@ router.put('/create/user/:username/:password', async (req, res) => {
         // const newUser = new User({ name, email });
         // const savedUser = await newUser.save();
 
+
         const username = req.params.username
         const password = req.params.password
+        console.log("Username: " + username);
+        console.log("Password: " + password);
         const userToBeCreated = new User({
             username: username,
-            password: password
+            password: password,
+            email: username
         })
         const savedUser = await userToBeCreated.save();
         res.status(201).json(savedUser);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Failed to create user' });
     }
 });

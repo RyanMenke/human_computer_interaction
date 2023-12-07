@@ -83,7 +83,7 @@ export default function CardWithForm() {
                             title: "Account Successfully created!",
                             description: "Welcome to a world of learning!"
                         })
-                        createUser(username, password);
+                        await createUser(username, password);
                         navigateToHome();
                     }
                 }}>Submit
