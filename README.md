@@ -5,16 +5,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Upon download cd into "human_computer_interaction"
+run npm install
+cd into "api"
+run npm install
+pull up one terminal window in "human_computer_interaction/api"
+run npm start
+pull up another terminal window in "human_computer_interaction"
+run npm run dev
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/Temp](http://localhost:3000/Temp) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
