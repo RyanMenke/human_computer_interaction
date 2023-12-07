@@ -157,7 +157,8 @@ function DisplayPosts({searchText, data}) {
 
     console.log(data);
     console.log(data.length);
-    const rows = searchText.trim().length > 0 ? data.filter(item => item.content.match(searchText)) : data
+    const rows = searchText.trim().length > 0 ? data.filter(item =>
+        convertToLowerCaseExceptSpecialChars(item.content).match(convertToLowerCaseExceptSpecialChars(searchText))) : data
     //data.map()
     //const a = data.at(0)._id;
     return rows
@@ -186,14 +187,20 @@ function DisplayPosts({searchText, data}) {
 //     )
 // }
 
+function convertToLowerCaseExceptSpecialChars(input) {
+    return input.replace(/[A-Z]/g, match => match.toLowerCase());
+}
+
 function PostRectangle(content) {
     const str = JSON.stringify(content)
     return (
-        <div className="flex flex-row mt-4 w-[95%] h-16 border items-center p-4">
-            <div className="font-bold text-lg flex items-center justify-center bg-gray-500 w-12 h-12 rounded-full" alt="@shadcn">P</div>
+        <div className="flex flex-row mt-4 w-full h-16 border items-center p-4">
+            <div >
+                <div className="font-bold text-lg flex items-center justify-center bg-gray-500 w-12 h-12 rounded-full" alt="@shadcn">P</div>
+            </div>
             <Separator className="m-4" orientation="vertical"></Separator>
             <div className="text-sm items-center flex h-12 w-max-120 overflow-auto">
-                <span className="overflow-auto">{content.content}</span>
+                <span className="">{content.content}</span>
             </div>
         </div>
     )
