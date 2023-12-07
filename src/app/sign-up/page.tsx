@@ -20,15 +20,19 @@ import {
     SelectValue,
 } from "../components/ui/select"
 import Link from "next/link";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/navigation";
 import {useToast} from "../components/ui/use-toast";
+import {debug} from "util";
 
 export default function CardWithForm() {
     const {toast} = useToast()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const inputRef = useRef(null);
+    const [isSelected, setIsSelected] = useState(false);
 
     const router = useRouter();
 
@@ -98,6 +102,8 @@ async function checkUser(username) {
     try {
         console.log(username)
         const response = await axios.get("http://localhost:8800/api/users/find/one/" + username)
+        console.log(response.data)
+        console.log("Did I get a response")
         return response.data
     }
     catch (e) {

@@ -24,6 +24,8 @@ import {
 } from "../components/ui/dialog";
 import { Textarea } from "../components/ui/textarea"
 import {useToast} from "../components/ui/use-toast";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 
 export default function Home() {
@@ -47,6 +49,10 @@ export default function Home() {
         }
     }
 
+    const navigateToTemp = () => {
+        router.push('/Temp');
+    };
+
     async function retrievePosts() {
         try {
             // Perform asynchronous database query or API call here
@@ -68,14 +74,14 @@ export default function Home() {
 
     return (
         <main className="flex h-screen w-screen flex-col bg-background">
-            <div className="flex w-full h-12 bg-gradient-to-r from-purple-600 to-indigo-500"/>
+            <div className="flex w-full min-h-[3rem] bg-gradient-to-r from-purple-600 to-indigo-500"/>
             <div className="flex flex-row grow">
                 <SideBar/>
                 <Separator orientation="vertical"></Separator>
                 <div className="flex grow flex-col h-full items-center border-white">
                     <div className="flex w-full h-24 items-center p-12">
                         <Forum searchText={searchText} setSearchText={setSearchText}/>
-                        <Dialog open={dialogOpen}>
+                        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                             <DialogTrigger><button onClick={() => setDialogOpen(true)} className="hover:transition-all ease-in-out hover:text-gray-200 hover:border-solid hover:border-2 border-gray-900 w-36 h-12 ml-8 rounded-lg bg-gradient-to-r from-purple-800 to-indigo-700 hover:from-purple-950 hover:to-indigo-500 duration-300">+ Create Post</button></DialogTrigger>
                             <DialogContent className="sm:max-w-[425px]">
                                 <DialogHeader>
@@ -126,7 +132,11 @@ export default function Home() {
 
                     </div>
                     <Separator orientation="horizontal"></Separator>
-                    <DisplayPosts searchText={searchText} data={data}/>
+                    <div className="flex flex-col grow overflow-y-auto w-full">
+                        <div className="h-[500px] p-4">
+                            <DisplayPosts searchText={searchText} data={data}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -182,15 +192,20 @@ function PostRectangle(content) {
         <div className="flex flex-row mt-4 w-[95%] h-16 border items-center p-4">
             <div className="font-bold text-lg flex items-center justify-center bg-gray-500 w-12 h-12 rounded-full" alt="@shadcn">P</div>
             <Separator className="m-4" orientation="vertical"></Separator>
-            <span>{content.content}</span>
+            <div className="text-sm items-center flex h-12 w-max-120 overflow-auto">
+                <span className="overflow-auto">{content.content}</span>
+            </div>
         </div>
     )
 }
 
 function SideBar() {
+    const router = useRouter();
     return (
         <div className="flex flex-col items-center w-32 h-full">
-            <Avatar className="m-7">
+            <Avatar onClick={() => {
+                router.push('/Temp');
+            }} className="m-7">
                 <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>

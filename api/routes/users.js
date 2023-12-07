@@ -67,6 +67,7 @@ router.get("/all/users", async (req, res) => {
 router.get("/find/one/:username", async (req, res) => {
     try {
         console.log(req.params.username)
+        console.log("Made it into Username find One.")
         const user = await User.findOne({username: req.params.username});
         console.log(user)
         res.status(200).json(user);
@@ -79,6 +80,8 @@ router.get("/find/one/:username", async (req, res) => {
 router.get("/sign_in/:username/:password", async (req, res) => {
     try {
         console.log(req.params.username)
+        console.log(req.params.username)
+        // const user = await User.findOne({username: req.params.username, password: req.params.password});
         const user = await User.findOne({username: req.params.username, password: req.params.password});
         console.log(user)
         res.status(200).json(user);

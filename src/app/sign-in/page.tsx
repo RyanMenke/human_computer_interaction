@@ -77,10 +77,12 @@ export default function CardWithForm() {
                         })
                         navigateToHome()
                     }
-                    toast({
-                        title: "That didn't work.",
-                        description: "Check username and password."
-                    })
+                    else {
+                        toast({
+                            title: "That didn't work.",
+                            description: "Check username and password."
+                        })
+                    }
                     return
                 }}>sign in
                 </Button>
